@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {HttpResult} from './types/http-result';
 import {TodayStatistic} from './models/TodayStatistic';
 import {environment} from '../../environments/environment';
+import {RecentUpdate} from './models/RecentUpdate';
 
 const apiUrl = environment.apiUrl;
 @Injectable({
@@ -15,5 +16,9 @@ export class ApiService {
 
   getTodayEmotions(): Observable<HttpResult<TodayStatistic>> {
     return this.httpClient.get<HttpResult<TodayStatistic>>(`${apiUrl}today`);
+  }
+
+  getRecentEmotions(): Observable<HttpResult<RecentUpdate[]>> {
+    return this.httpClient.get<HttpResult<RecentUpdate[]>>(`${apiUrl}recents`);
   }
 }

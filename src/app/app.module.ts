@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { RecentItemComponent } from './recent-item/recent-item.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RecentItemComponent
   ],
   imports: [
     BrowserModule,

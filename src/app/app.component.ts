@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from './services/api.service';
 import {ApexOptions} from 'ng-apexcharts';
 import {TodayStatistic} from './services/models/TodayStatistic';
-import {HttpResult} from './services/types/http-result';
 import {SocketClientService} from './services/socket-client.service';
+import {RecentUpdate} from './services/models/RecentUpdate';
 
 enum EmotionPosition {
   HAPPY,
@@ -79,16 +79,21 @@ export class AppComponent implements OnInit {
       }
     ]
   };
-
+  recentUpdates: RecentUpdate[];
   constructor(private apiService: ApiService,
               private socketClientService: SocketClientService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.apiService.getTodayEmotions().subscribe( result => this.updateDashboard(result.data));
-    this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result));
     this.updateLabels();
     this.updateColors();
+    this.apiService.getTodayEmotions().subscribe( result => this.updateDashboard(result.data));
+    this.apiService.getRecentEmotions().subscribe( result => this.recentUpdates = result.data);
+    this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result));
+    this.socketClientService.onRecentUser().subscribe( result => {
+      this.recentUpdates.pop();
+      this.recentUpdates.unshift(result);
+    });
   }
 
   updateDashboard(result: TodayStatistic) {
@@ -96,6 +101,10 @@ export class AppComponent implements OnInit {
       this.options.series = result.series;
       this.isLoading = false;
     }
+  }
+
+  updateRecent() {
+
   }
 
   updateSeries() {
@@ -120,5 +129,15 @@ export class AppComponent implements OnInit {
 
   updateColors() {
     this.options.colors = ['#6610f2', '#28a745', '#ffc107', '#fd7e14', '#dc3545'];
+  }
+
+  getEmotionColor(emotion: string) {
+    switch (emotion) {
+      case 'happy': return this.options.colors[EmotionPosition.HAPPY];
+      case 'good': return this.options.colors[EmotionPosition.GOOD];
+      case 'normal': return this.options.colors[EmotionPosition.NORMAL];
+      case 'bad': return this.options.colors[EmotionPosition.BAD];
+      case 'anger': return this.options.colors[EmotionPosition.ANGER];
+    }
   }
 }
