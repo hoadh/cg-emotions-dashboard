@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {ApiService} from './services/api.service';
+import {ApexOptions} from 'ng-apexcharts';
 
 enum EmotionPosition {
   HAPPY,
@@ -38,14 +40,13 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  options = {
+  options: ApexOptions = {
     title: {
       // text: "Biểu đồ 2020",
       align: 'left',
       margin: 10,
       offsetX: 0,
       offsetY: 0,
-      floating: false,
       style: {
         fontSize:  '36px',
         color:  '#263238'
@@ -75,8 +76,13 @@ export class AppComponent implements OnInit {
     ]
   };
 
+  constructor(private apiService: ApiService) {
+  }
+
   ngOnInit(): void {
-    this.updateSeries();
+    this.apiService.getTodayEmotions().subscribe( result => {
+      this.options.series = result.data.series;
+    });
     this.updateLabels();
     this.updateColors();
   }

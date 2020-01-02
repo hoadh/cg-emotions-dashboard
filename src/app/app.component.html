@@ -21,9 +21,9 @@
       <div class="col-md-4 col-xs-12">
 
         <ul class="list-group" id="countEmotion">
-          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of emotions">
-            {{ item.emotion }}
-            <span class="badge badge-primary badge-pill">{{ item.count }}</span>
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of options.series, index as idx">
+            {{ options.labels[idx] }}
+            <span class="badge badge-primary badge-pill">{{ item }}</span>
           </li>
         </ul>
         <div id="recent"></div>
