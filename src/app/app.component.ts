@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from './services/api.service';
 import {ApexOptions} from 'ng-apexcharts';
+import {TodayStatistic} from './services/models/TodayStatistic';
+import {HttpResult} from './services/types/http-result';
+import {SocketClientService} from './services/socket-client.service';
 
 enum EmotionPosition {
   HAPPY,
@@ -17,6 +20,7 @@ enum EmotionPosition {
 })
 export class AppComponent implements OnInit {
   title = 'Biểu đồ mức độ hạnh phúc CodeGym';
+  isLoading = true;
   emotions = [
     {
       emotion: 'Siêu hạnh phúc',
@@ -76,15 +80,22 @@ export class AppComponent implements OnInit {
     ]
   };
 
-  constructor(private apiService: ApiService) {
-  }
+  constructor(private apiService: ApiService,
+              private socketClientService: SocketClientService) {}
 
   ngOnInit(): void {
-    this.apiService.getTodayEmotions().subscribe( result => {
-      this.options.series = result.data.series;
-    });
+    this.isLoading = true;
+    this.apiService.getTodayEmotions().subscribe( result => this.updateDashboard(result.data));
+    this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result));
     this.updateLabels();
     this.updateColors();
+  }
+
+  updateDashboard(result: TodayStatistic) {
+    if (result) {
+      this.options.series = result.series;
+      this.isLoading = false;
+    }
   }
 
   updateSeries() {

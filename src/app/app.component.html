@@ -20,7 +20,7 @@
       </div>
       <div class="col-md-4 col-xs-12">
 
-        <ul class="list-group" id="countEmotion">
+        <ul class="list-group" *ngIf="!isLoading">
           <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of options.series, index as idx">
             {{ options.labels[idx] }}
             <span class="badge badge-primary badge-pill">{{ item }}</span>
