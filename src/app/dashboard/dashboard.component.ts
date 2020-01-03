@@ -5,13 +5,6 @@ import {ApiService} from '../services/api.service';
 import {SocketClientService} from '../services/socket-client.service';
 import {TodayStatistic} from '../services/models/TodayStatistic';
 import {CommonService} from '../services/common.service';
-enum EmotionPosition {
-  HAPPY,
-  GOOD,
-  NORMAL,
-  BAD,
-  ANGER
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -20,28 +13,6 @@ enum EmotionPosition {
 })
 export class DashboardComponent implements OnInit {
   isLoading = true;
-  emotions = [
-    {
-      emotion: 'Siêu hạnh phúc',
-      count: 20
-    },
-    {
-      emotion: 'Khá hạnh phúc',
-      count: 20
-    },
-    {
-      emotion: 'Bình thường',
-      count: 20
-    },
-    {
-      emotion: 'Không tốt',
-      count: 20
-    },
-    {
-      emotion: 'Tào lao',
-      count: 20
-    },
-  ];
 
   options: ApexOptions = {
     title: {
@@ -103,16 +74,6 @@ export class DashboardComponent implements OnInit {
       this.options.series = result.series;
       this.isLoading = false;
     }
-  }
-
-  updateSeries() {
-    this.options.series = [
-      this.emotions[EmotionPosition.HAPPY].count,
-      this.emotions[EmotionPosition.GOOD].count,
-      this.emotions[EmotionPosition.NORMAL].count,
-      this.emotions[EmotionPosition.BAD].count,
-      this.emotions[EmotionPosition.ANGER].count,
-    ];
   }
 
   updateLabels() {
