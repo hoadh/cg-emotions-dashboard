@@ -105,10 +105,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  updateRecent() {
-
-  }
-
   updateSeries() {
     this.options.series = [
       this.emotions[EmotionPosition.HAPPY].count,
@@ -120,13 +116,7 @@ export class DashboardComponent implements OnInit {
   }
 
   updateLabels() {
-    this.options.labels = [
-      this.emotions[EmotionPosition.HAPPY].emotion,
-      this.emotions[EmotionPosition.GOOD].emotion,
-      this.emotions[EmotionPosition.NORMAL].emotion,
-      this.emotions[EmotionPosition.BAD].emotion,
-      this.emotions[EmotionPosition.ANGER].emotion,
-    ];
+    this.options.labels = this.commonService.getChartLabels();
   }
 
   updateColors() {
