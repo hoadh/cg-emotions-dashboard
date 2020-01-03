@@ -91,7 +91,9 @@ export class AppComponent implements OnInit {
     this.apiService.getRecentEmotions().subscribe( result => this.recentUpdates = result.data);
     this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result));
     this.socketClientService.onRecentUser().subscribe( result => {
-      this.recentUpdates.pop();
+      while (this.recentUpdates.length > 50) {
+        this.recentUpdates.pop();
+      }
       this.recentUpdates.unshift(result);
     });
   }
