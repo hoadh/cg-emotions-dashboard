@@ -7,11 +7,17 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RecentItemComponent } from './recent-item/recent-item.component';
+import { RecentUpdatesComponent } from './recent-updates/recent-updates.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecentItemComponent
+    RecentItemComponent,
+    RecentUpdatesComponent,
+    DashboardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

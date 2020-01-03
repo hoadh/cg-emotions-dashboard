@@ -21,4 +21,8 @@ export class ApiService {
   getRecentEmotions(): Observable<HttpResult<RecentUpdate[]>> {
     return this.httpClient.get<HttpResult<RecentUpdate[]>>(`${apiUrl}recents`);
   }
+
+  getAllRecentUpdates(): Observable<HttpResult<RecentUpdate[]>> {
+    return this.httpClient.get<HttpResult<RecentUpdate[]>>(`${apiUrl}recents?limit=100`);
+  }
 }

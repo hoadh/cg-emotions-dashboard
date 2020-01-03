@@ -1,0 +1,16 @@
+<main role="main" class="container">
+  <app-header></app-header>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Mới cập nhật</h6>
+    <app-recent-item
+      *ngFor="let recent of recentUpdates"
+      [username]="(recent.user) ? recent.user.name : '<unknown-name>'"
+      [color]="getEmotionColor(recent.emotion)"
+      [content]="(recent.note) ? recent.note.content : '...'"
+    ></app-recent-item>
+    <small class="d-block text-center mt-3">
+      <a href="#">Tải thêm</a>
+    </small>
+  </div>
+</main>
