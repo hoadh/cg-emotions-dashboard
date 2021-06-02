@@ -25,16 +25,16 @@
     </div>
   </div>
 
-  <!-- <div class="my-3 p-3 bg-white rounded shadow-sm">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h6 class="border-bottom border-gray pb-2 mb-0">Mới cập nhật</h6>
     <app-recent-item
       *ngFor="let recent of recentUpdates"
-      [username]="(recent.user) ? recent.user.name : '<unknown-name>'"
+      [username]="'<CodeGymer>'"
       [color]="getEmotionColor(recent.emotion)"
       [content]="(recent.note) ? recent.note.content : '...'"
     ></app-recent-item>
     <small class="d-block text-right mt-3">
       <a routerLink="/recents">Tất cả cập nhật</a>
     </small>
-  </div> -->
+  </div>
 </main>
