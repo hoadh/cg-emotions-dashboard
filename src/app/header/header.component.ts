@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  title = 'Biểu đồ mức độ hạnh phúc CodeGym';
+  title = 'CodeGym Happiness Index';
   constructor() { }
 
   ngOnInit() {
