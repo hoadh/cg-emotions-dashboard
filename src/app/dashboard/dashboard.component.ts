@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
       },
     },
     noData: {
-      text: 'Đang tải...'
+      text: 'Chưa có dữ liệu thống kê'
     },
     chart: {
       type: 'donut'
@@ -58,9 +58,9 @@ export class DashboardComponent implements OnInit {
     this.isLoading = true;
     this.updateLabels();
     this.updateColors();
-    this.apiService.getTodayEmotions().subscribe( result => this.updateDashboard(result.data));
+    this.apiService.getTodayEmotions().subscribe( result => this.updateDashboard(result.data, "apiService.getTodayEmotions"));
     this.apiService.getRecentEmotions().subscribe( result => this.recentUpdates = result.data);
-    this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result));
+    this.socketClientService.onUpdateDashboard().subscribe( result => this.updateDashboard(result, "socketClientService.onUpdateDashboard"));
     this.socketClientService.onRecentUser().subscribe( result => {
       while (this.recentUpdates.length > 50) {
         this.recentUpdates.pop();
@@ -69,7 +69,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  updateDashboard(result: TodayStatistic) {
+  updateDashboard(result: TodayStatistic, source: string) {
+    console.log("updateDashboard", source);
     if (result) {
       this.options.series = result.series;
       this.isLoading = false;
