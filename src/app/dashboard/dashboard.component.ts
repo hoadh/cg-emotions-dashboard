@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
 
   options: ApexOptions = {
     title: {
-      // text: "Biểu đồ 2020",
       align: 'left',
       margin: 10,
       offsetX: 0,
@@ -30,7 +29,8 @@ export class DashboardComponent implements OnInit {
       text: 'Chưa có dữ liệu thống kê'
     },
     chart: {
-      type: 'donut'
+      type: 'donut',
+      width: '50%',
     },
     series: [],
     labels: [],
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200
+            width: '100%'
           },
           legend: {
             position: 'bottom'
@@ -73,8 +73,16 @@ export class DashboardComponent implements OnInit {
     console.log("updateDashboard", source);
     if (result) {
       this.options.series = result.series;
+      // this.updateLabelsWithSeries(result.series);
       this.isLoading = false;
     }
+  }
+
+  updateLabelsWithSeries(series) {
+    let labels = this.commonService.getChartLabels().map( (label, i) => {
+      return label + ' (' + series[i] + ')';
+    });
+    this.options.labels = labels;
   }
 
   updateLabels() {
